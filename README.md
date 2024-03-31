@@ -46,6 +46,13 @@ Follow these steps to set up and run Pulse on your local machine:
 6. **Access Pulse in your browser:** \
    Open a web browser and go to http://localhost:8080 to access Pulse.
 
+## Swagger UI
+Pulse includes Swagger UI for interactive API documentation. To access Swagger UI, follow these steps:
+
+1. Run the application as described in the installation instructions.
+2. Open a web browser and go to http://localhost:8080/swagger-ui.html.
+3. Explore the available API endpoints and test them directly from the Swagger UI interface.
+
 
 ## Contribution Guidelines
 
