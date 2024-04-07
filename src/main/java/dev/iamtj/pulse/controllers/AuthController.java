@@ -4,8 +4,6 @@ import dev.iamtj.pulse.dtos.AuthenticationResponse;
 import dev.iamtj.pulse.dtos.LoginRequest;
 import dev.iamtj.pulse.dtos.RegisterRequest;
 import dev.iamtj.pulse.services.AuthService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

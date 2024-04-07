@@ -5,7 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.Getter;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +17,8 @@ import java.util.function.Function;
 
 @Service
 public class JwtProvider {
-    private String secretKey;
-    @Getter
-    private long jwtExipration;
+    private final String secretKey = "b5d6ce40b1233b22717273e874430fa63e03eb1c0da1d3766f645760b293664f";
+    private final long jwtExipration = 600000;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -55,6 +54,7 @@ public class JwtProvider {
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
+
     private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername()).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration)).signWith(getSignInKey(), SignatureAlgorithm.HS256)
