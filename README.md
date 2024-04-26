@@ -46,6 +46,31 @@ Follow these steps to set up and run Pulse on your local machine:
 6. **Access Pulse in your browser:** \
    Open a web browser and go to http://localhost:8080 to access Pulse.
 
+## Docker
+This project is also Dockerized. Below are the instructions to pull and use the Docker image from Docker Hub.
+
+### Prerequisites
+
+Before you begin, ensure you have Docker installed on your system. If not, you can download and install it from [here](https://docs.docker.com/get-docker/)
+
+### Pulling the Docker Image
+
+You can pull the Docker image for this project from Docker Hub using the following command:
+
+```bash
+docker pull tanujchakraborty21/pulse:1.0
+```
+
+### Running the Docker Container
+
+Once you have pulled the image, you can run a container using the following command:
+
+```bash
+docker run -p 8080:8080 tanujchakraborty21/pulse:1.0
+```
+
+This will start the Spring Boot application inside a Docker container, and you can access it at http://localhost:8080 in your web browser.
+
 ## Swagger UI
 Pulse includes Swagger UI for interactive API documentation. To access Swagger UI, follow these steps:
 
