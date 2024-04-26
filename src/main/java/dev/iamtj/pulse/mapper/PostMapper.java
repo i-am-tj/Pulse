@@ -1,6 +1,7 @@
 package dev.iamtj.pulse.mapper;
 
 import dev.iamtj.pulse.dtos.PostRequest;
+import dev.iamtj.pulse.dtos.PostResponse;
 import dev.iamtj.pulse.models.Community;
 import dev.iamtj.pulse.models.Post;
 import dev.iamtj.pulse.models.User;
@@ -12,5 +13,8 @@ public interface PostMapper {
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")
     Post map(PostRequest postRequest, Community community, User user);
+
+
+    public abstract PostResponse mapToDto(Post post);
 
 }

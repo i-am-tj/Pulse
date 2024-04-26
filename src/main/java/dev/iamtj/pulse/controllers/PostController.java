@@ -2,8 +2,10 @@ package dev.iamtj.pulse.controllers;
 
 import dev.iamtj.pulse.dtos.PostRequest;
 import dev.iamtj.pulse.dtos.PostResponse;
+import dev.iamtj.pulse.models.Post;
 import dev.iamtj.pulse.services.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,29 +19,28 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/")
-    public ResponseEntity createPosts(@RequestBody PostRequest postRequest) {
-        postService.save(postRequest);
-        return null;
+    public ResponseEntity<Post> createPost(@RequestBody PostRequest postRequest) {
+        return new ResponseEntity<>(postService.save(postRequest), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public PostResponse getPostById(@PathVariable("id") Long id) {
-        return null;
+    public ResponseEntity<PostResponse> getPostById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(postService.getPost(id), HttpStatus.OK);
     }
 
     @GetMapping("/")
-    public List<PostResponse> getAllPosts() {
-        return null;
+    public ResponseEntity<List<PostResponse>> getAllPosts() {
+        return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
     }
 
     @GetMapping("by-community/{id}")
-    public List<PostResponse> getPostsByCommunity(@PathVariable("id") Long id) {
-        return null;
+    public ResponseEntity<List<PostResponse>> getPostsByCommunity(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(postService.getPostsByCommunity(id), HttpStatus.OK);
     }
 
     @GetMapping("/by-user/{name}")
-    public List<PostResponse> getPostsByUser(@PathVariable("name") String name) {
-        return null;
+    public ResponseEntity<List<PostResponse>> getPostsByUser(@PathVariable("name") String name) {
+        return new ResponseEntity<>(postService.getPostsByUsername(name), HttpStatus.OK);
     }
 
 }

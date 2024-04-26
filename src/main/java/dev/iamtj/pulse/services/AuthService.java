@@ -11,16 +11,17 @@ import dev.iamtj.pulse.repositories.UserRepository;
 import dev.iamtj.pulse.repositories.VerificationTokenRepository;
 import dev.iamtj.pulse.security.JwtProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -50,6 +51,13 @@ public class AuthService {
         String mailUrl = "http://localhost:8080/api/auth/accountVerification/";
         mailService.sendMail(new Notification("Activate your account", user.getEmail(),
                 "Thank you for signing up to Pulse Platform. Please click: " + mailUrl + token + " to activating your account."));
+    }
+
+    @Transactional(readOnly = true)
+    public User getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + username));
     }
 
     private String generateVerificationToken(User user) {
